@@ -28,7 +28,7 @@ router.register(r'events', dateViews.EventViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    # #Event
+    #Event
     path('event/<int:pk>/', dateViews.EventDetailViewSet.as_view()),
     path('event/<int:pk>/comments/', dateViews.EventCommentCreateListViewSet.as_view()),
     
@@ -43,4 +43,5 @@ urlpatterns = [
 
 
 # Serve media files in development
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG: 
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

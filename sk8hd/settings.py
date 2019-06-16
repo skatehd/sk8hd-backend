@@ -11,19 +11,39 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# Secrets are included as a file 'secrets.json'
+# If the secrets file is not set, we'll assume debug, 
+# Format is a single json object with the secrets 
+try: 
+    with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+        secrets = json.load(secrets_file)
+        DEBUG = False
+except: 
+    DEBUG = True
+
+def get_secret(setting):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'a#c6xnx&1)9-9xe1q^8kx5b3077^mhty5owm#)53(89pik86)s'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if DEBUG: 
+    SECRET_KEY = 'a#c6xnx&1)9-9xe1q^8kx5b3077^mhty5owm#)53(89pik86)s'
+else: 
+    SECRET_KEY = get_secret('SECRET_KEY')
 
 
 # CORS_ORIGIN_ALLOW_ALL = DEBUG
@@ -118,13 +138,13 @@ REST_FRAMEWORK = {
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG: 
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 
 
 # Password validation
