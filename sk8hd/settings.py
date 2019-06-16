@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'rest_auth.registration',
     'tinymce',
+    'corsheaders',
+
     'dates',
     'users',
 ]
@@ -73,6 +75,8 @@ CORS_ORIGIN_ALLOW_ALL = DEBUG
 SITE_ID = 1
     
 MIDDLEWARE = [
+     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,15 +87,11 @@ MIDDLEWARE = [
 ]
 
 if DEBUG is True:
-    INSTALLED_APPS += ('corsheaders', )
-    MIDDLEWARE += [ 
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    ]
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
     ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
+    CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de",]
 
 
 TINYMCE_DEFAULT_CONFIG = {
