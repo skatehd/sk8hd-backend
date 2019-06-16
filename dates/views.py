@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from .models import Event, EventComments
-from .serializers import EventSerializer, EventDetailSerializer, EventCommentSerializer
+from .serializers import EventSerializer, EventDetailSerializer, EventCommentSerializer, EventCommentWriteSerializer
 from rest_framework import generics
 from django.utils import timezone
 from rest_framework import permissions
@@ -25,10 +25,16 @@ class EventDetailViewSet(generics.RetrieveAPIView):
 
 
 class EventCommentCreateListViewSet(generics.ListCreateAPIView):
-    serializer_class = EventCommentSerializer 
+ 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     pagination_class = None
            
+
+    def get_serializer(self, *args, **kwargs): 
+        if self.request.method == 'GET':
+            return EventCommentSerializer(*args, **kwargs)
+        else: 
+            return EventCommentWriteSerializer(*args, **kwargs)
 
     def get_queryset(self):
         event = self.kwargs['pk']

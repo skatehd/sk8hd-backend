@@ -91,7 +91,7 @@ if DEBUG is True:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
     ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
-    CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de",]
+    CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de", "www.sk8hd.de"]
 
 
 TINYMCE_DEFAULT_CONFIG = {

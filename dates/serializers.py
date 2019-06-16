@@ -20,6 +20,12 @@ class EventCommentSerializer(serializers.ModelSerializer):
 
     class Meta: 
         model = EventComments
-        fields = ('__all__')
-        read_only_fields = ('owner', )
-        
+        fields = ('parent', 'content', 'date', 'owner', 'event')
+    
+
+class EventCommentWriteSerializer(serializers.ModelSerializer):
+    
+    class Meta: 
+        model = EventComments
+        fields = ('parent', 'content', )
+    
