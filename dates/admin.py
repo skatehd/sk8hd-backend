@@ -12,7 +12,7 @@ from .models import Event, EventComments
 
 class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'short_description', 'starttime', 'endtime')
-    fields = ('title', 'short_description', 'description', 'starttime', 'endtime')
+    fields = ('title', 'short_description', 'description', 'starttime', 'endtime', 'image')
 
 
 admin.site.register(Event, EventAdmin)

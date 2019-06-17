@@ -14,9 +14,10 @@ class TokenSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     # TODO: add profile like https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/
     # profile = serializers.PrimaryKeyRelatedField(many=False, queryset=UserProfile.objects.all())
+    # profile = serializers.CharField(source='profile.profile')
     class Meta: 
         model = User
-        fields = ('id', 'username', )
+        fields = ('id', 'username',)
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
