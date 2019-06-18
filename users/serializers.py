@@ -11,14 +11,29 @@ class TokenSerializer(serializers.ModelSerializer):
         fields = ('key', 'user')
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = UserProfile
+        fields = ('profile', )
+
+
 class UserSerializer(serializers.ModelSerializer):
-    # TODO: add profile like https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/
-    # profile = serializers.PrimaryKeyRelatedField(many=False, queryset=UserProfile.objects.all())
-    # profile = serializers.CharField(source='profile.profile')
+
+    info = ProfileSerializer(read_only=True)
+
     class Meta: 
         model = User
-        fields = ('id', 'username',)
+        fields = ('id', 'username', 'info')
 
+    def to_representation(self, obj):
+        """Move fields from info up one level."""
+        representation = super().to_representation(obj)
+        profile_representation = representation.pop('info')
+        for key in profile_representation:
+            representation[key] = profile_representation[key]
+
+        return representation
+    
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -36,8 +51,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
         return representation
 
-class UserAddedInfoSerializer(serializers.ModelSerializer):
-    class Meta: 
-        model = UserProfile
-        fields = ('profile')
+
 

@@ -38,7 +38,7 @@ class EventCommentCreateListViewSet(generics.ListCreateAPIView):
 
     def get_queryset(self):
         event = self.kwargs['pk']
-        return EventComments.objects.filter(event__id=event)
+        return EventComments.objects.filter(event__id=event).select_related('owner').select_related('owner__info')
 
     def perform_create(self, serializer):
         event = self.kwargs['pk']
