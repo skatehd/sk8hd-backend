@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 from rest_framework import routers
 from django.conf import settings
-
+from allauth.account.views import confirm_email
 
 router = routers.DefaultRouter()
 router.register(r'events', dateViews.EventViewSet)
@@ -38,7 +38,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('auth/', include('rest_auth.urls')),
-    path('auth/registration/', include('rest_auth.registration.urls'))
+    path('auth/registration/account-confirm-email/<str:key>/', confirm_email, name='account_confirm_email'),
+    path('auth/registration/', include('rest_auth.registration.urls')),
 ]
 
 
