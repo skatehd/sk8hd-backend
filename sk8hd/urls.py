@@ -39,9 +39,7 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     # path('', include('django.contrib.auth.urls')),
     path('auth/', include('rest_auth.urls')),
-    path('auth/registration/logout/', logout, name='account_logout'),
-    path('auth/registration/login/', login, name='account_login'),
-    path('auth/registration/account-confirm-email/', confirm_email, name='account_email'),
+    path('accounts/', include('allauth.urls')),
     path('auth/registration/account-confirm-email/<str:key>/', confirm_email, name='account_confirm_email'),
     path('auth/registration/', include('rest_auth.registration.urls')),
 ]
