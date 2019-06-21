@@ -152,7 +152,7 @@ else:
             'file': {
                 'level': 'WARN',
                 'class': 'logging.FileHandler',
-                'filename': '/path/to/django/debug.log',
+                'filename': './django.log',
             },
         },
         'loggers': {
