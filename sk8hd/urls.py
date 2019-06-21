@@ -38,7 +38,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('auth/', include('rest_auth.urls')),
-    path('auth/registration/account-confirm-email/<str:key>/', confirm_email, name='account_confirm_email'),
+    path('auth/registration/account-confirm-email/<str:key>/', confirm_email, name='account_email'),
     path('auth/registration/', include('rest_auth.registration.urls')),
 ]
 
