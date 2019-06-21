@@ -6,5 +6,4 @@ Du bekommst diese E-Mail weil sich jemand als {{ user_display }} mit dieser E-Ma
 
 Um deine E-Mail Adresse zu bestaetigen gehe auf {{ activate_url }}.
 {% endblocktrans %}{% endautoescape %}
-{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Danke, {{ site_name }}!
-{{ site_domain }}{% endblocktrans %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Danke!{% endblocktrans %}

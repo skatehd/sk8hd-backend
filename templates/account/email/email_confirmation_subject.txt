@@ -1,4 +1,1 @@
-{% load i18n %}
-{% autoescape off %}
-{% blocktrans %}Bitte bestaetige deine E-Mail Addresse{% endblocktrans %}
-{% endautoescape %}
+Bitte bestaetige deine E-Mail Addresse
