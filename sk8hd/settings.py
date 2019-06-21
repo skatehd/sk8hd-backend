@@ -96,6 +96,7 @@ else:
     EMAIL_HOST_USER =  get_secret('EMAIL_USER')
     EMAIL_HOST_PASSWORD = get_secret('EMAIL_PASSWORD')
     EMAIL_PORT = 465
+    DEFAULT_FROM_EMAIL = get_secret('EMAIL_USER')
     ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
     CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de", "www.sk8hd.de"]
 
