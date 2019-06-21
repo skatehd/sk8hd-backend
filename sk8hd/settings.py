@@ -226,6 +226,10 @@ REST_AUTH_SERIALIZERS = {
 
 AUTH_PROFILE_MODEL = 'users.UserProfile'
 
+
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "https://www.sk8hd.de"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "https://www.sk8hd.de"
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
