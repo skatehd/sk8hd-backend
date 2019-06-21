@@ -1,0 +1,10 @@
+{% load account %}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+Hallo bei sk8hd.de,
+
+Du bekommst diese E-Mail weil sich jemand als {{ user_display }} mit dieser E-Mail bei sk8hd.de angemeldet hat.
+
+Um deine E-Mail Adresse zu bestaetigen gehe auf {{ activate_url }}.
+{% endblocktrans %}{% endautoescape %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Danke, {{ site_name }}!
+{{ site_domain }}{% endblocktrans %}

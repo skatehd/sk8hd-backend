@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'tinymce',
     'corsheaders',
@@ -75,7 +76,7 @@ CORS_ORIGIN_ALLOW_ALL = DEBUG
 SITE_ID = 1
     
 MIDDLEWARE = [
-     'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,9 +91,13 @@ if DEBUG is True:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
+    EMAIL_USE_SSL = True
+    EMAIL_HOST = get_secret('EMAIL_HOST')
+    EMAIL_HOST_USER =  get_secret('EMAIL_USER')
+    EMAIL_HOST_PASSWORD = get_secret('EMAIL_PASSWORD')
+    EMAIL_PORT = 465
     ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
     CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de", "www.sk8hd.de"]
-
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",
@@ -108,7 +113,7 @@ ROOT_URLCONF = 'sk8hd.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

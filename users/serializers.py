@@ -26,11 +26,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'info')
 
     def to_representation(self, obj):
-        """Move fields from info up one level."""
+        """Move fields from info up one level. if they exist"""
         representation = super().to_representation(obj)
         profile_representation = representation.pop('info')
-        for key in profile_representation:
-            representation[key] = profile_representation[key]
+        if profile_representation:
+            for key in profile_representation:
+                representation[key] = profile_representation[key]
 
         return representation
     
