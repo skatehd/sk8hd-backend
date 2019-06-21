@@ -98,7 +98,7 @@ else:
     EMAIL_PORT = 465
     DEFAULT_FROM_EMAIL = get_secret('EMAIL_USER')
     ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
-    CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de", "sk8hd.de"]
+    CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de", "https://sk8hd.de"]
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",
