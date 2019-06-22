@@ -20,7 +20,7 @@ class EventCommentSerializer(serializers.ModelSerializer):
 
     class Meta: 
         model = EventComments
-        fields = ('parent', 'content', 'date', 'owner', 'event')
+        fields = ('id', 'parent', 'content', 'date', 'owner', 'event')
     
 
 class EventCommentWriteSerializer(serializers.ModelSerializer):

@@ -57,6 +57,6 @@ apt install postgis
 Run the SQL in the database to sctivate postgis: 
 ```
 su postgres
-psql
+psql <db name>
 CREATE EXTENSION postgis;
 ```
