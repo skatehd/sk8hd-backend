@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from tinymce.models import HTMLField
 from django.contrib.auth import get_user_model
 from datetime import datetime    
@@ -10,7 +10,7 @@ class Event(models.Model):
     starttime = models.DateTimeField(auto_now=False, auto_now_add=False)    
     endtime = models.DateTimeField(auto_now=False, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
-
+    location = models.PointField(null=True, blank=True)
 
 
 class EventComments(models.Model):

@@ -12,7 +12,7 @@ class EventViewSet(viewsets.ModelViewSet):
     """
     API Endpoint for Events
     """
-    now = timezone.now()
+    now = timezone.now() - timezone.timedelta(days=1)
     queryset = Event.objects.filter(starttime__gt=now).order_by('starttime')
     serializer_class = EventSerializer
 
