@@ -5,6 +5,8 @@ from .serializers import ThreadCommentSerializer, ThreadCommentWriteSerializer, 
 from rest_framework import generics
 from django.utils import timezone
 from rest_framework import permissions
+from datetime import datetime    
+
 # Create your views here.
 
 class ThreadViewSet(generics.ListCreateAPIView):
@@ -14,7 +16,7 @@ class ThreadViewSet(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):        
-        queryset = Thread.objects.all().order_by('-last_edit')
+        queryset = Thread.objects.all().order_by('-last_edit').select_related('owner').select_related('owner__info')
         search = self.request.query_params.get('q', None)
         if search is not None:
             queryset = queryset.filter(title__icontains=search)
@@ -48,3 +50,4 @@ class ThreadCommentViewSet(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         id = self.kwargs['pk']
         serializer.save(owner=self.request.user, thread_id=id)
+        Thread.objects.filter(id=id).update(last_edit=datetime.now())
