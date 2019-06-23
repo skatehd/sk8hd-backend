@@ -71,6 +71,7 @@ INSTALLED_APPS = [
 
     'dates',
     'users',
+    'billoboard',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = DEBUG
