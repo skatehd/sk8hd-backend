@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'dates',
+    'shredmap',
     'users',
     'billoboard',
 ]

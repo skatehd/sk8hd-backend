@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
+
 from dates import views as dateViews
 from users import views as userViews
 from billoboard import views as boardViews
-from django.conf.urls.static import static
+from shredmap import views as mapViews
 
 from rest_framework import routers
 from django.conf import settings
@@ -29,12 +31,19 @@ router.register(r'events', dateViews.EventViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    
     # Event
     path('event/<int:pk>/', dateViews.EventDetailViewSet.as_view()),
     path('event/<int:pk>/comments/', dateViews.EventCommentCreateListViewSet.as_view()),
-    # # Billoboard
+    
+    # Billoboard
     path('board/', boardViews.ThreadViewSet.as_view()),
     path('board/<int:pk>/comments/', boardViews.ThreadCommentViewSet.as_view()),
+
+    # ShredMap
+    path('map/', mapViews.LocationViewSet.as_view()),
+    path('map/<int:pk>/', mapViews.LocationDetailViewSet.as_view()),
+    path('map/<int:pk>/object/', mapViews.SkateObjectViewSet.as_view()),
 
     path('users/<int:pk>/', userViews.UserDetailViewSet.as_view()),
 
