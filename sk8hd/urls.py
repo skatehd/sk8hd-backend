@@ -44,6 +44,8 @@ urlpatterns = [
     path('map/', mapViews.LocationViewSet.as_view()),
     path('map/<int:pk>/', mapViews.LocationDetailViewSet.as_view()),
     path('map/<int:pk>/object/', mapViews.SkateObjectViewSet.as_view()),
+    path('map/<int:pk>/comments/', mapViews.LocationCommentViewSet.as_view()),
+    # path('map/<int:pk>/imageUpload/', mapViews.ImageUpload.as_view()),
 
     path('users/<int:pk>/', userViews.UserDetailViewSet.as_view()),
 

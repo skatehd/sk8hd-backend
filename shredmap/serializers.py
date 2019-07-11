@@ -17,8 +17,19 @@ class CommentViewSerializer(serializers.ModelSerializer):
         model = LocationComments
         fields = "__all__"
 
+class CommentWriteSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = LocationComments
+        fields = ('parent', 'content', )
+    
+
 class ImageViewSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
+    class Meta: 
+        model = Images
+        fields = "__all__"
+
+class ImageSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Images
         fields = "__all__"

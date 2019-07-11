@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework import generics
-from .models import Location, SkateObjects
-from .serializers import LocationSerializer, LocationDetailSerializer, SkateObjectSerializer
+from .models import Location, SkateObjects, LocationComments
+from .serializers import LocationSerializer, LocationDetailSerializer, SkateObjectSerializer, CommentViewSerializer, CommentWriteSerializer, ImageSerializer
 from django.utils import timezone
 from rest_framework import permissions
 from datetime import datetime  
@@ -37,3 +37,34 @@ class SkateObjectViewSet(generics.CreateAPIView):
     def perform_create(self, serializer):
         id = self.kwargs['pk']
         serializer.save(owner=self.request.user, location_id=id)
+
+
+class LocationCommentViewSet(generics.ListCreateAPIView): 
+    
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    pagination_class = None
+         
+    def get_serializer(self, *args, **kwargs): 
+        if self.request.method == 'GET':
+            return CommentViewSerializer(*args, **kwargs)
+        else: 
+            return CommentWriteSerializer(*args, **kwargs)
+
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        return LocationComments.objects.filter(location__id=id).select_related('owner').select_related('owner__info')
+
+    def perform_create(self, serializer):
+        id = self.kwargs['pk']
+        serializer.save(owner=self.request.user, location_id=id)
+
+
+class ImageUpload(generics.ListCreateAPIView):
+   
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly )
+    serializer_class = ImageSerializer
+
+    def perform_create(self, serializer):
+        id = self.kwargs['pk']
+        serializer.save(owner=self.request.user, location_id=id)
+
