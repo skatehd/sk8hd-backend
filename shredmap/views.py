@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework import generics
-from .models import Location, SkateObjects, LocationComments
+from .models import Location, SkateObjects, LocationComments, Images
 from .serializers import LocationSerializer, LocationDetailSerializer, SkateObjectSerializer, CommentViewSerializer, CommentWriteSerializer, ImageSerializer
 from django.utils import timezone
 from rest_framework import permissions
@@ -61,8 +61,12 @@ class LocationCommentViewSet(generics.ListCreateAPIView):
 
 class ImageUpload(generics.ListCreateAPIView):
    
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly )
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
     serializer_class = ImageSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        return Images.objects.filter(location__id=id)
 
     def perform_create(self, serializer):
         id = self.kwargs['pk']

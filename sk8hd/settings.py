@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'billoboard',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = DEBUG
 # Required by django rest auth registration
 SITE_ID = 1
     
@@ -94,6 +93,7 @@ MIDDLEWARE = [
 if DEBUG is True:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+    CORS_ORIGIN_ALLOW_ALL = True
 else:
     EMAIL_USE_SSL = True
     EMAIL_HOST = get_secret('EMAIL_HOST')
@@ -103,6 +103,19 @@ else:
     DEFAULT_FROM_EMAIL = get_secret('EMAIL_USER')
     ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
     CORS_ORIGIN_WHITELIST = ["https://www.sk8hd.de", "https://sk8hd.de"]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'cache-control',
+]
 
 TINYMCE_DEFAULT_CONFIG = {
     'plugins': "table,spellchecker,paste,searchreplace",

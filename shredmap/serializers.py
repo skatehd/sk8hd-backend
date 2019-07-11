@@ -32,7 +32,7 @@ class ImageViewSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Images
-        fields = "__all__"
+        fields = ('image', )
 
 class TricksViewSerializer(serializers.ModelSerializer):
     owner = UserSerializer()
